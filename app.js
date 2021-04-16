@@ -6,51 +6,24 @@
 */
 
 const prisonAfterNDays = (cells, N) => {
-  // creates a new day each loop
+  // Loops N number of times to return last value of cells
   for (let i = 1; i <= N; i++) {
-    let checkedOccupancy = [];
-    // pushes 0 to the first value because the value can never be occupied 
-    checkedOccupancy.push(0);
-    // checks for neighboring occupants / returns occupied if both neighboring values are equal
-    if (cells[0] === cells[2]) {
-      checkedOccupancy.push(1);
-    } else {
-      checkedOccupancy.push(0);
-    }
-    if (cells[1] === cells[3]) {
-      checkedOccupancy.push(1);
-    } else {
-      checkedOccupancy.push(0);
-    }
-    if (cells[2] === cells[4]) {
-      checkedOccupancy.push(1);
-    } else {
-      checkedOccupancy.push(0);
-    }
-    if (cells[3] === cells[5]) {
-      checkedOccupancy.push(1);
-    } else {
-      checkedOccupancy.push(0);
-    }
-    if (cells[4] === cells[6]) {
-      checkedOccupancy.push(1);
-    } else {
-      checkedOccupancy.push(0);
-    }
-    if (cells[5] === cells[7]) {
-      checkedOccupancy.push(1);
-    } else {
-      checkedOccupancy.push(0);
-    }
-    // pushes 0 to the last value because the value can never be occupied 
-    checkedOccupancy.push(0);
-    // sets the cells array equal to the last iteration of the 'N' parameter 
-    cells = checkedOccupancy;
+    // creates new array with all occupied/vacant cell values
+    let newArray = cells.map((value, index) => {
+      // checks if the 2 adjacent values of each cell are equal, if they are the cell is occupied, if not, it is vacant
+      if (cells[index - 1] === cells[index + 1]) {
+        return (value = 1);
+      } else {
+        return (value = 0);
+      }
+    });
+    // sets cells to the returned value of the new array so that the loop returns a new array until it reaches N
+    cells = newArray;
   }
-  // logs result to console
-  console.log(cells);
+  // returns final array
+  return cells;
 };
 
-prisonAfterNDays([0, 1, 0, 1, 1, 0, 0, 1], 7);
+console.log(prisonAfterNDays([0, 1, 0, 1, 1, 0, 0, 1], 7));
 
-prisonAfterNDays([1, 0, 0, 1, 0, 0, 1, 0], 1000000000);
+console.log(prisonAfterNDays([1, 0, 0, 1, 0, 0, 1, 0], 1000000000));
